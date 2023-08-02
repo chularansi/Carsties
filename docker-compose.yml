@@ -1,0 +1,23 @@
+version: '3.4'
+
+services:
+  postgres:
+    image: postgres
+    container_name: postgresdb
+    environment:
+      - POSTGRES_PASSWORD=postgrespw
+    expose:
+      - "5433" # Publishes 5433 to other containers but NOT to host machine
+    ports:
+      - "5433:5433"
+    volumes:
+      - pgdata:/var/lib/postresql/data
+    command: -p 5433
+  #auctionservice:
+  #  image: ${DOCKER_REGISTRY-}auctionservice
+  #  build:
+  #    context: .
+  #    dockerfile: src/AuctionService/Dockerfile
+
+volumes:
+  pgdata:
