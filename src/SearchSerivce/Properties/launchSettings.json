@@ -1,13 +1,12 @@
 {
   "profiles": {
-    "AuctionService": {
+    "SearchService": {
       "commandName": "Project",
-      "dotnetRunMessages": true,
-      "launchBrowser": false,
-      "applicationUrl": "http://localhost:7001",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://localhost:7002"
     },
     "Docker": {
       "commandName": "Docker",
