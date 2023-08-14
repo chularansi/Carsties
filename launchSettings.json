@@ -5,7 +5,10 @@
       "commandVersion": "1.0",
       "serviceActions": {
         "auctionservice": "StartDebugging",
-        "search": "StartDebugging"
+        "search": "StartDebugging",
+        "identityservice": "StartDebugging",
+        "gatewayservice": "StartDebugging",
+        "searchservice": "StartDebugging"
       }
     }
   }

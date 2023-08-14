@@ -6,16 +6,17 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["src/Search/Search.csproj", "src/Search/"]
-RUN dotnet restore "src/Search/Search.csproj"
+COPY ["src/SearchSerivce/SearchService.csproj", "src/SearchSerivce/"]
+COPY ["src/Contracts/Contracts.csproj", "src/Contracts/"]
+RUN dotnet restore "src/SearchSerivce/SearchService.csproj"
 COPY . .
-WORKDIR "/src/src/Search"
-RUN dotnet build "Search.csproj" -c Release -o /app/build
+WORKDIR "/src/src/SearchSerivce"
+RUN dotnet build "SearchService.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Search.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "SearchService.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Search.dll"]
+ENTRYPOINT ["dotnet", "SearchService.dll"]

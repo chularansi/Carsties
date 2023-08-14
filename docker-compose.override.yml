@@ -1,18 +1,44 @@
 version: '3.4'
 
-#services:
-  #auctionservice:
-  #  container_name: auctionservice
-  #  environment:
-  #    - ASPNETCORE_ENVIRONMENT=Development
-  #    - ConnectionStrings__DefaultConnection=Server=postgres:5433;User Id=postgres;Password=postgrespw;Database=auctions
-  #  ports:
-  #    - "7001:80"
+services:
+  auctionservice:
+    container_name: auctionservice
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=postgres:5433;User Id=postgres;Password=postgrespw;Database=auctions
+      - RabbitMq__Host=rabbitmq
+      - IdentityServiceUrl=http://identityservice
+    ports:
+      - "7001:80"
+    depends_on:
+      - postgres
+      - rabbitmq
 
-#services:
-#  searchservice:
-#    environment:
-#      - ASPNETCORE_ENVIRONMENT=Development
-#    ports:
-#      - "7002:80"
+  searchservice:
+    container_name: searchservice
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__MongoDbConnection=mongodb://root:mongopw@mongodb
+      - RabbitMq__Host=rabbitmq
+      - AuctionServiceUrl=http://auctionservice
+    ports:
+      - "7002:80"
+    depends_on:
+      - mongodb
+      - rabbitmq
 
+  identityservice:
+    container_name: identityservice
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ConnectionStrings__DefaultConnection=Server=postgres:5433;User Id=postgres;Password=postgrespw;Database=identity
+    ports:
+      - "5000:80"
+
+
+  gatewayservice:
+    container_name: gatewayservice
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+    ports:
+      - "6001:80"

@@ -7,6 +7,7 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["src/AuctionService/AuctionService.csproj", "src/AuctionService/"]
+COPY ["src/Contracts/Contracts.csproj", "src/Contracts/"]
 RUN dotnet restore "src/AuctionService/AuctionService.csproj"
 COPY . .
 WORKDIR "/src/src/AuctionService"

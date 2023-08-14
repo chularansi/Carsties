@@ -13,6 +13,7 @@ services:
     volumes:
       - pgdata:/var/lib/postresql/data
     command: -p 5433
+
   mongodb:
     image: mongo
     container_name: mongodb
@@ -23,6 +24,7 @@ services:
       - 27017:27017
     volumes:
       - mongodata:/var/lib/mongodb/data
+
   rabbitmq:
     image: rabbitmq:3-management-alpine
     container_name: rabbitmq
@@ -32,19 +34,35 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
-  #auctionservice:
-  #  image: ${DOCKER_REGISTRY-}auctionservice
-  #  build:
-  #    context: .
-  #    dockerfile: src/AuctionService/Dockerfile
 
-  #search:
-  #  image: ${DOCKER_REGISTRY-}searchservice
-  #  build:
-  #    context: .
-  #    dockerfile: src/SearchService/Dockerfile
+  auctionservice:
+    image: ${DOCKER_REGISTRY-}auctionservice
+    build:
+      context: .
+      dockerfile: src/AuctionService/Dockerfile
+
+  searchservice:
+    image: ${DOCKER_REGISTRY-}searchservice
+    build:
+      context: .
+      dockerfile: src/SearchSerivce/Dockerfile
+
+  identityservice:
+    image: ${DOCKER_REGISTRY-}identityservice
+    build:
+      context: .
+      dockerfile: src/IdentityService/Dockerfile
+
+  gatewayservice:
+    image: ${DOCKER_REGISTRY-}gatewayservice
+    build:
+      context: .
+      dockerfile: src/GatewayService/Dockerfile
 
 volumes:
   pgdata:
   mongodata:
+
+
+
 
