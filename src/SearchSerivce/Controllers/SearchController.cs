@@ -40,9 +40,10 @@ namespace SearchService.Controllers
 
             query = searchParams.OrderBy switch
             {
-                "make" => query.Sort(x => x.Ascending(x => x.Make)),
-                "new" => query.Sort(x => x.Descending(x => x.CreatedAt)),
-                _ => query.Sort(x => x.Ascending(x => x.AuctionEnd)),
+                "make" => query.Sort(s => s.Ascending(a => a.Make))
+                    .Sort(s => s.Ascending(a => a.Model)),
+                "new" => query.Sort(s => s.Descending(a => a.CreatedAt)),
+                _ => query.Sort(s => s.Ascending(a => a.AuctionEnd)),
             };
 
             query.PageNumber(searchParams.PageNumber);
