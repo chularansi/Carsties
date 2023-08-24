@@ -20,12 +20,12 @@ export default function UserActions({ user }: Props) {
   const setParams = useParamsStore((state) => state.setParams);
 
   function setWinner() {
-    // setParams({ winner: user.username, seller: undefined });
+    setParams({ winner: user.username, seller: undefined });
     if (pathname !== '/') router.push('/');
   }
 
   function setSeller() {
-    // setParams({ seller: user.username, winner: undefined });
+    setParams({ seller: user.username, winner: undefined });
     if (pathname !== '/') router.push('/');
   }
 
