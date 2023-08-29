@@ -9,7 +9,8 @@
         "identityservice": "StartDebugging",
         "gatewayservice": "StartDebugging",
         "searchservice": "StartDebugging",
-        "biddingservice": "StartDebugging"
+        "biddingservice": "StartDebugging",
+        "notificationservice": "StartDebugging"
       }
     }
   }
