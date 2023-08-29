@@ -8,7 +8,8 @@
         "search": "StartDebugging",
         "identityservice": "StartDebugging",
         "gatewayservice": "StartDebugging",
-        "searchservice": "StartDebugging"
+        "searchservice": "StartDebugging",
+        "biddingservice": "StartDebugging"
       }
     }
   }
