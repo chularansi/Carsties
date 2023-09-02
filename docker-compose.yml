@@ -13,6 +13,8 @@ services:
     volumes:
       - pgdata:/var/lib/postresql/data
     command: -p 5433
+    networks:
+      custom:
 
   mongodb:
     image: mongo
@@ -24,6 +26,8 @@ services:
       - 27017:27017
     volumes:
       - mongodata:/var/lib/mongodb/data
+    networks:
+      custom:
 
   rabbitmq:
     image: rabbitmq:3-management-alpine
@@ -34,6 +38,8 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+    networks:
+      custom:
 
   auctionservice:
     image: ${DOCKER_REGISTRY-}auctionservice
@@ -71,10 +77,44 @@ services:
       context: .
       dockerfile: src/NotificationService/Dockerfile
 
+  web-app:
+    image: ${DOCKER_REGISTRY-}web-app
+    build: 
+      context: .
+      dockerfile: frontend/web-app/Dockerfile
+    volumes:
+      - webdata:/var/lib/web/data
+    #ports:
+    #  - "3000:3000"
+    extra_hosts:
+      - id.carsties.com:10.5.0.200
+    environment:
+      - NEXTAUTH_SECRET=somethingreallyreallysecret
+      - NEXTAUTH_URL=http://app.carsties.com
+      - NEXTAUTH_URL_INTERNAL=http://web-app:3000
+      - API_URL=http://gatewayservice/
+      - ID_URL=http://id.carsties.com
+      - NEXT_PUBLIC_NOTIFY_URL=http://gatewayservice/notifications
+      - VIRTUAL_HOST=app.carsties.com
+      - VIRTUAL_PORT=3000
+    networks:
+      custom:
+
+  nginx-proxy:
+    image: nginxproxy/nginx-proxy
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      custom:
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./devcerts:/etc/nginx/certs
+
 volumes:
   pgdata:
   mongodata:
-
+  webdata:
 
 
 

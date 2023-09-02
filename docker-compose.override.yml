@@ -1,5 +1,11 @@
 version: '3.4'
 
+networks:
+  custom:
+    ipam:
+      config:
+        - subnet: 10.5.0.0/16
+
 services:
   auctionservice:
     container_name: auctionservice
@@ -20,6 +26,8 @@ services:
     depends_on:
       - postgres
       - rabbitmq
+    networks:
+      custom:
 
   searchservice:
     container_name: searchservice
@@ -34,25 +42,36 @@ services:
     depends_on:
       - mongodb
       - rabbitmq
+    networks:
+      custom:
 
   identityservice:
     container_name: identityservice
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
       - ASPNETCORE_URLS=http://+:80
+      - ClientApp=http://app.carsties.com
       - ConnectionStrings__DefaultConnection=Server=postgres:5433;User Id=postgres;Password=postgrespw;Database=identity
-    ports:
-      - "5000:80"
+      - VIRTUAL_HOST=id.carsties.com
+    #ports:
+    #  - "80:80"
     depends_on:
       - postgres
+    networks:
+      custom:
+        ipv4_address: 10.5.0.200
 
   gatewayservice:
     container_name: gatewayservice
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
       - ASPNETCORE_URLS=http://+:80
-    ports:
-      - "6001:80"
+      - ClientApp=https://app.carsties.com
+      - VIRTUAL_HOST=api.carsties.com
+    #ports:
+    #  - "6001:80"
+    networks:
+      custom:
 
   biddingservice:
     container_name: biddingservice
@@ -68,6 +87,8 @@ services:
     depends_on:
       - mongodb
       - rabbitmq
+    networks:
+      custom:
 
   notificationservice:
     container_name: notificationservice
@@ -79,3 +100,12 @@ services:
       - "7004:80"
     depends_on:
       - rabbitmq
+    networks:
+      custom:
+
+  web-app:
+    container_name: web-app
+
+  nginx-proxy:
+    container_name: nginx-proxy
+    
