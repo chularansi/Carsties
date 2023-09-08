@@ -25,7 +25,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuctionService.UnitTests", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{26988DF1-07A2-47AE-A4AC-AE844AEB6C7B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionService.IntegrationTests", "tests\AuctionService.IntegrationTests\AuctionService.IntegrationTests.csproj", "{6A7E4263-D1F7-45D7-AAF2-C8F65F73FA63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuctionService.IntegrationTests", "tests\AuctionService.IntegrationTests\AuctionService.IntegrationTests.csproj", "{6A7E4263-D1F7-45D7-AAF2-C8F65F73FA63}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{236B2D0F-82C1-4D87-A511-22CFC29B4360}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{940DD6F5-FED7-4B80-BB78-90AA408D5A9C}"
+	ProjectSection(SolutionItems) = preProject
+		deploy-identity.yml = deploy-identity.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +94,7 @@ Global
 		{BF62CD4C-1FCF-4F7A-A133-C5F527C5650F} = {7DD1CB7A-EFD0-4F35-86F7-3BFE636A65E1}
 		{D91D9350-D39A-4B7A-A9C4-327BD3BA1499} = {26988DF1-07A2-47AE-A4AC-AE844AEB6C7B}
 		{6A7E4263-D1F7-45D7-AAF2-C8F65F73FA63} = {26988DF1-07A2-47AE-A4AC-AE844AEB6C7B}
+		{940DD6F5-FED7-4B80-BB78-90AA408D5A9C} = {236B2D0F-82C1-4D87-A511-22CFC29B4360}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B6956DB4-618F-4DA6-B835-668EF01C5357}
