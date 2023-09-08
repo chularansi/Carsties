@@ -23,7 +23,7 @@ jobs:
     - name: Build and Push the Docker image
       uses: docker/build-push-action@v3
       with:
-        context: "{{defaultContext}}"
+        context: .
         file: src/IdentityService/Dockerfile
         push: true
         tags: chulafdo/identityservice:latest
